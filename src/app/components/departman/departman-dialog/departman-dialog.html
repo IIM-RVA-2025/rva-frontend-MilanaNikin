@@ -1,0 +1,56 @@
+<div class="container">
+  <h3 mat-dialog-title *ngIf="data.mode === 'add'">Adding new departman</h3>
+  <h3 mat-dialog-title *ngIf="data.mode === 'update'">Edit departmana</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div *ngIf="data.mode === 'update'">
+        <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput [(ngModel)]="departman.id" [readonly]= "true", name='id'>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Naziv</mat-label>
+            <input matInput [(ngModel)]="departman.naziv" name='naziv'>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Oznaka</mat-label>
+            <input matInput [(ngModel)]="departman.oznaka" name='oznaka'>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>Fakultet</mat-label>
+            <mat-select [(ngModel)]="departman.fakultet" name="fakultet" [compareWith]="compareTo">
+                <mat-option *ngFor="let fakultet of fakulteti" [value]="fakultet">
+                    {{ fakultet.naziv }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+
+        <button mat-button (click)="cancel()">Cancel</button>
+
+        <!-- ADD -->
+        <button *ngIf="data.mode === 'add'"
+                mat-raised-button
+                color="primary"
+                (click)="create()">
+            Add
+        </button>
+
+        <!-- UPDATE -->
+        <button *ngIf="data.mode === 'update'"
+                mat-raised-button
+                color="accent"
+                (click)="update()">
+            Update
+        </button>
+
+
+    </div>
+  </form>
+</div>
